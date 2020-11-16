@@ -30,7 +30,9 @@ export class RideService {
   }
 
   getAllRides(): Observable<Ride[]> {
-    return;
+    return this.http.get<Ride[]>(this.baseURL);
+                    //.map(res=>res.json())
+                    //.catch(err=> Observable.throw(err.message));
   }
 
   getFilteredRides(comparisonRide: Ride): Observable<Ride[]> {

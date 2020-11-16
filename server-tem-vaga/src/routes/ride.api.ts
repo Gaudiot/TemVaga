@@ -23,7 +23,7 @@ rideRoutes.get('/ride/some', (req: express.Request, res: express.Response) => {
 });
 
 rideRoutes.get('/ride/all', (req: express.Request, res: express.Response) => {
-  //rideRegister.getllRides()
+  rideRegister.getAllRides()
 });
 
 rideRoutes.get(

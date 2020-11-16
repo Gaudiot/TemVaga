@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tem-vaga"
+    }
+  },
+  "defaultProject": "tem-vaga",
+  "cli": {
+    "analytics": false
+  }
 }

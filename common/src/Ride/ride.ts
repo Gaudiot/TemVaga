@@ -1,4 +1,4 @@
-import {v4 as uuid} from 'uuid';
+import {v4 as uuid} from 'uuid'
 import User from '../User/user';
 import Route from './route';
 import Seats from './seats';
@@ -9,6 +9,7 @@ interface IRide{
     places: number;
     isPrivate: boolean;
     departureTime: Date;
+    route: Route;
 }
 
 const baseIPlace:IPlace = {street: '', number: 0};

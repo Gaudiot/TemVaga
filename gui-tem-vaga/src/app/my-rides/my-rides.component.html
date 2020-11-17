@@ -1,1 +1,10 @@
 <p>my-rides works!</p>
+<ul>
+  <li *ngFor="let ride of rides" >
+    <button (click)="evaluateRide(ride.driver, 1)">Avaliar 1</button>
+    <button (click)="evaluateRide(ride.driver, 2)">Avaliar 2</button>
+    <button (click)="evaluateRide(ride.driver, 3)">Avaliar 3</button>
+    <button (click)="evaluateRide(ride.driver, 4)">Avaliar 4</button>
+    <button (click)="evaluateRide(ride.driver, 5)">Avaliar 5</button>
+  </li>
+</ul>

@@ -40,6 +40,8 @@ export class UserService {
     cpfToEvaluate: string,
     evaluationValue: number
   ): Observable<number> {
-    return;
+    return this.http.put<number>(`${this.baseURL}/user/${cpfToEvaluate}`, JSON.stringify({evaluationValue}), {headers: this.headers})
+    .pipe(retry(2),
+    map(res =>  {return res}));
   }
 }

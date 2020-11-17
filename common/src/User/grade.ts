@@ -18,11 +18,11 @@ export default class Grade {
     newValue = this.clampGrade(newValue, 0, 5);
     this.evaluationQtt += 1;
 
-    this.average = (this.average * oldQtt + newValue) / this.evaluationQtt;
+    this.average = +((this.average * oldQtt + newValue) / this.evaluationQtt).toFixed(2);
     return this.average;
   }
 
-  clampGrade(toClamp, min, max): number {
+  clampGrade(toClamp: number, min: number, max: number): number {
     // If toClamp is less than min, return min
     // If toClamp is greather than max, return max
     return toClamp <= min ? min : toClamp >= max ? max : toClamp;

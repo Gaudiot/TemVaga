@@ -43,9 +43,13 @@ export default class UserRegister {
   }
 
   evaluateUser(cpfToEvaluate: string, evaluationValue: number): number {
-    var result: User = this.users.find(u => u.cpf == cpfToEvaluate);
-    if (result) return result.evaluate(evaluationValue);
-    // -1 indicates no user was found for given CPF
-    return -1;
+    const user = this.users.find(u => u.cpf === cpfToEvaluate);
+    if (!user){
+      throw new Error("Usuário não encontrado");
+    }    
+
+    const newUserGrade = user.evaluate(evaluationValue);
+
+    return newUserGrade;
   }
 }

@@ -34,7 +34,10 @@ userRoutes.delete(
 );
 
 userRoutes.put('/user/:cpf', (req: express.Request, res: express.Response) => {
-  // userRegister.evaluateUser(cpfToEvaluate, evaluationValue)
+  const { cpf: cpfToEvaluate } = req.params;
+  const { evaluationValue } = req.body;
+  const grade = userRegister.evaluateUser(cpfToEvaluate, evaluationValue);
+  res.send({grade});
 });
 
 module.exports = userRoutes;

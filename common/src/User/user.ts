@@ -52,7 +52,11 @@ export default class User {
     this.requestedRides = [...from.requestedRides];
   }
   // TODO: Implement evaluation for passengerGrade
-  evaluate(evaluationValue: number): number {
+  evaluateAsDriver(evaluationValue: number): number {
     return this.driverGrade.incrementGrade(evaluationValue);
+  }
+
+  evaluateAsPassenger(evaluationValue: number): number {
+    return this.passengerGrade.incrementGrade(evaluationValue);
   }
 }

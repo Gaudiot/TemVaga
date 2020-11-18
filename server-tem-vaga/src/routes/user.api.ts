@@ -7,7 +7,11 @@ const userRoutes = express.Router();
 const userRegister: UserRegister = new UserRegister();
 
 userRoutes.post('/user', (req: express.Request, res: express.Response) => {
-  // userRegister.register(user);
+  const { cpf } = req.body;
+  let user = new User();
+  user.cpf = cpf;
+  userRegister.register(user);
+  res.send({user})
 });
 
 userRoutes.put('/user', (req: express.Request, res: express.Response) => {
@@ -15,15 +19,18 @@ userRoutes.put('/user', (req: express.Request, res: express.Response) => {
 });
 
 userRoutes.get('/user/:cpf', (req: express.Request, res: express.Response) => {
-  //userRegister.getUser(cpf)
+  const { cpf } = req.params;
+  const user = userRegister.getUser(cpf)
+  res.send({user})
 });
 
 userRoutes.get('/user/some', (req: express.Request, res: express.Response) => {
   //userRegister.getUsers(cpf[])
 });
 
-userRoutes.get('/user/all', (req: express.Request, res: express.Response) => {
-  //userRegister.getAllUsers()
+userRoutes.get('/users', (req: express.Request, res: express.Response) => {
+  const users = userRegister.getAllUsers();
+  res.send(JSON.stringify({users}));
 });
 
 userRoutes.delete(
@@ -35,8 +42,8 @@ userRoutes.delete(
 
 userRoutes.put('/user/:cpf', (req: express.Request, res: express.Response) => {
   const { cpf: cpfToEvaluate } = req.params;
-  const { evaluationValue } = req.body;
-  const grade = userRegister.evaluateUser(cpfToEvaluate, evaluationValue);
+  const { evaluationValue, userRole } = req.body;
+  const grade = userRegister.evaluateUser(cpfToEvaluate, evaluationValue, userRole);
   res.send({grade});
 });
 

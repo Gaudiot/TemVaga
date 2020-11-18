@@ -42,13 +42,14 @@ export default class UserRegister {
     return index;
   }
 
-  evaluateUser(cpfToEvaluate: string, evaluationValue: number): number {
+  evaluateUser(cpfToEvaluate: string, evaluationValue: number, userRole: 'driver' | 'passenger'): number {
     const user = this.users.find(u => u.cpf === cpfToEvaluate);
     if (!user){
       throw new Error("Usuário não encontrado");
     }    
 
-    const newUserGrade = user.evaluate(evaluationValue);
+    const newUserGrade = (userRole === 'driver') ? 
+    user.evaluateAsDriver(evaluationValue) : user.evaluateAsPassenger(evaluationValue);
 
     return newUserGrade;
   }

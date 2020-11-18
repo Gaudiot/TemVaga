@@ -12,6 +12,7 @@ export default class User {
   passengerGrade: Grade;
   registeredRides: string[];
   requestedRides: string[];
+  usersToEvaluate: string[];
 
   constructor() {
     this.clean();
@@ -30,6 +31,7 @@ export default class User {
     this.passengerGrade = new Grade({ average: 5, evaluationQtt: 1 });
     this.registeredRides = [];
     this.requestedRides = [];
+    this.usersToEvaluate = [];
   }
 
   clone(): User {
@@ -50,6 +52,7 @@ export default class User {
     this.passengerGrade = new Grade(from.passengerGrade);
     this.registeredRides = [...from.registeredRides];
     this.requestedRides = [...from.requestedRides];
+    this.usersToEvaluate = [...from.usersToEvaluate];
   }
   // TODO: Implement evaluation for passengerGrade
   evaluateAsDriver(evaluationValue: number): number {
@@ -58,5 +61,21 @@ export default class User {
 
   evaluateAsPassenger(evaluationValue: number): number {
     return this.passengerGrade.incrementGrade(evaluationValue);
+  }
+
+  addUsersToEvaluate(cpfsToEvaluate: string[]): void{
+    cpfsToEvaluate.forEach(cpf => {
+      if(cpf !== this.cpf){
+        this.usersToEvaluate.push(cpf);
+      }
+    })
+  }
+
+  removeEvaluatedUser(cpfToRemove: string): void{
+    const userIndex = this.usersToEvaluate.findIndex(cpf => cpf === cpfToRemove);
+
+    if(userIndex >= 0){
+      this.usersToEvaluate.splice(userIndex, 1);
+    }
   }
 }

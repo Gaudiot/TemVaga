@@ -15,7 +15,7 @@ export default class Grade {
   incrementGrade(newValue: number): number {
     const oldQtt = this.evaluationQtt;
 
-    newValue = this.clampGrade(newValue, 0, 5);
+    newValue = this.clampGrade(newValue, 1, 5);
     this.evaluationQtt += 1;
 
     this.average = +((this.average * oldQtt + newValue) / this.evaluationQtt).toFixed(2);

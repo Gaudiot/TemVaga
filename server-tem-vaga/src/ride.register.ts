@@ -29,29 +29,7 @@ export default class RideRegister {
   }
 
   getFilteredRides(comparisonRide: Ride): Ride[] {
-    var ridesReturn: Ride[] 
-    for(let i = 0; i < this.rides.length; i++) {
-      if(comparisonRide.route.departurePlace === this.rides[i].route.departurePlace && comparisonRide.route.arrivalPlace === this.rides[i].route.arrivalPlace) {
-      if(comparisonRide.departureTime === this.rides[i].departureTime) {
-        if(comparisonRide.price != null) {
-          if(comparisonRide.price >= this.rides[i].price) {
-            ridesReturn.push(this.rides[i])
-          }
-        } else {
-          ridesReturn.push(this.rides[i])
-        }
-      } else if(comparisonRide.departureTime === null) {
-        if(comparisonRide.price != null) {
-          if(comparisonRide.price >= this.rides[i].price) {
-            ridesReturn.push(this.rides[i])
-          }
-        } else {
-          ridesReturn.push(this.rides[i])
-        }
-      }
-    }
-    }
-    return ridesReturn;
+    return;
   }
 
   delete(id: string): number {

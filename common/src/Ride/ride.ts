@@ -1,39 +1,49 @@
-import {v4 as uuid} from 'uuid'
-import User from '../User/user';
+  
+import { v4 as uuid } from 'uuid';
 import Route from './route';
 import Seats from './seats';
-import { IPlace } from './route';
 
-interface IRide{
-    price: number;
-    places: number;
-    isPrivate: boolean;
-    departureTime: Date;
-    route: Route;
+interface IRide {
+  departureTime: Date;
+  price: number;
+  isPrivate: boolean;
+  seats: number;
+  //route: Route;
 }
 
-const baseIPlace:IPlace = {street: '', number: 0};
+export default class Ride {
+  id: string;
+  driver: string;
+  departureTime: Date;
+  price: number;
+  isPrivate: boolean;
+  seats: Seats;
+  route: Route;
 
-export default class ride{
-    id: string;
-    driver: User;
-    price: number;
-    isPrivate: boolean;
-    departureTime: Date;
-    route: Route;
-    seats: Seats;
+  constructor(
+    driver: string,
+    { departureTime, price, isPrivate, seats }: IRide,
+    departurePlace: string,
+    arrivalPlace: string
+  ) {
+    this.id = uuid();
+    this.driver = driver;
+    this.departureTime = departureTime;
+    this.price = price;
+    this.isPrivate = isPrivate;
+    this.seats = new Seats(seats);
+    this.route = new Route(departurePlace, arrivalPlace);
+  }
 
-    constructor(driver: User, {price, places, isPrivate, departureTime}: IRide){
-        this.id = uuid();
-        this.driver = driver.clone();
-        this.price = price;
-        this.route = new Route({departurePlace: baseIPlace, arrivalPlace: baseIPlace});
-        this.seats = new Seats(places);
-        this.isPrivate = isPrivate;
-        this.departureTime = departureTime;
-    }
+  changePrivacy() {
+    this.isPrivate = !this.isPrivate;
+  }
 
-    changePrivacy(){
-        this.isPrivate = !this.isPrivate;
-    }
+  getDeparturePlace(): string {
+    return this.route.getDeparturePlace();
+  }
+
+  getArrivalPlace(): string {
+    return this.route.getArrivalPlace();
+  }
 }

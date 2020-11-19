@@ -23,24 +23,24 @@
  <td><button onClick="filtros('mfiltros')">Filtros</button></td>
 
  <td><button (click)="pesquisarCarona(atributosPesquisa)" [disabled]="!f.valid">Pesquisar</button></td>
- <div id="mfiltros" class="hidden">
+ <div id="mfiltros">
 <tr>
    <td><input type="button" value="Valor" onClick="filtros('valor')" /><br/></td>
-   <div id="valor" class="hidden">
+   <div id="valor" >
       <td><label> Até: </label></td>
       <td><input name="valormaxbox" [(ngModel)]="atributosPesquisa.valorMax"></td>
    </div>
 </tr>
 <tr>
    <td><input type="button" value="Hora" onClick="filtros('hora')"/><br/></td>
-   <div id="hora" class="hidden">
+   <div id="hora">
         <td><label>Até: </label></td>
         <td><input name="horabox" [(ngModel)]="atributosPesquisa.hora"></td>    
   </div>
 </tr>
 <tr>
    <td><input type="button" value="Data" onClick="filtros('data')"/><br/></td>
-   <div id="data" class="hidden">
+   <div id="data">
         <td><label>Data: </label></td>
         <td><input name="databox" [(ngModel)]="atributosPesquisa.data"></td>
    </div>
@@ -57,7 +57,7 @@
     <td name="idlist">{{c.id}}</td>
     <td name="custolist">{{c.price}}</td>
     <td name="chegadadestlist">{{c.departureTime}}</td>
-    <td name="localdepartidalist">{{c.route.arrivalPlace.street}}</td>
+    <td name="localdepartidalist">{{c.route.arrivalPlace}}</td>
     <a name="caronasdescr" routerLink="/caronasDescricao">Descrição</a>
  </tr>
  </table>

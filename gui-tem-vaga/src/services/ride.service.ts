@@ -14,7 +14,14 @@ export class RideService {
   constructor(private http: HttpClient) {}
 
   create(ride: Ride): Observable<Ride> {
-    return;
+    return (this.http
+      .post<any>(`${this.baseURL}/ride`, ride, { headers: this.headers })
+      .pipe(retry(2), map((res) => {
+          if (res.success) return JSON.parse(res.ride);
+          return null;
+        })
+      )
+    );
   }
  
 

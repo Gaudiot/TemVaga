@@ -1,5 +1,14 @@
 import Grade from './grade';
 
+export interface IUser {
+  cpf: string;
+  name: string;
+  photo: string;
+  telephone: string;
+  email: string;
+  password: string;
+}
+
 export default class User {
   cpf: string;
   name: string;
@@ -8,43 +17,42 @@ export default class User {
   email: string;
   password: string;
   carLicensePlate: string;
-  grade: Grade;
+  driverGrade: Grade;
+  passengerGrade: Grade;
+  registeredRides: string[];
+  requestedRides: string[];
 
-  constructor() {
-    this.clean();
-  }
-
-  clean(): void {
-    this.cpf = '';
-    this.name = '';
-    this.photo = '';
-    this.telephone = '';
-    this.email = '';
-    this.password = '';
+  constructor(
+    cpf: string,
+    name: string,
+    photo: string,
+    telephone: string,
+    email: string,
+    password: string
+  ) {
+    this.cpf = cpf;
+    this.name = name;
+    this.photo = photo;
+    this.telephone = telephone;
+    this.email = email;
+    this.password = password;
     this.carLicensePlate = '';
-    // Base grade for new user
-    this.grade = new Grade({ average: 5, evaluationQtt: 1 });
+    // Base grades for new user
+    this.driverGrade = new Grade({ average: 5, evaluationQtt: 1 });
+    this.passengerGrade = new Grade({ average: 5, evaluationQtt: 1 });
+    this.registeredRides = [];
+    this.requestedRides = [];
   }
-
-  clone(): User {
-    var user: User = new User();
-    user.copyFrom(this);
-    return user;
-  }
-
-  copyFrom(from: User): void {
-    this.cpf = from.cpf;
-    this.name = from.name;
-    this.photo = from.photo;
-    this.telephone = from.telephone;
-    this.email = from.email;
-    this.password = from.password;
-    this.carLicensePlate = from.carLicensePlate;
-    this.grade = new Grade(from.grade);
-  }
-
+  // TODO: Implement evaluation for passengerGrade
   evaluate(evaluationValue: number): number {
-    this.grade.incrementGrade(evaluationValue);
-    return this.grade.average;
+    return this.driverGrade.incrementGrade(evaluationValue);
+  }
+
+  insertRegisteredRide(rideId: string): void {
+    this.registeredRides.push(rideId);
+  }
+
+  setCarLicensePlate(licensePlate: string): void {
+    this.carLicensePlate = licensePlate;
   }
 }

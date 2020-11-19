@@ -15,14 +15,14 @@ export class AvailableRidesComponent implements OnInit {
   caronadesejada: Ride;
   atributosPesquisa: AtributosPesquisa = new AtributosPesquisa() 
   pesquisa: boolean = false;
-  
+
     pesquisarCarona(atributos: AtributosPesquisa): void {
     this.atributosPesquisa = {partidaRua: "", partidaNum: null, destinoRua: "", destinoNum: null, valorMax: null, data: null, hora: null}
     this.atributosPesquisa = atributos;
-    this.caronadesejada.route.departurePlace.street = this.atributosPesquisa.partidaRua
-    this.caronadesejada.route.departurePlace.number = this.atributosPesquisa.partidaNum
-    this.caronadesejada.route.arrivalPlace.street = this.atributosPesquisa.destinoRua
-    this.caronadesejada.route.arrivalPlace.number = this.atributosPesquisa.destinoNum
+    this.caronadesejada.route.departurePlace = this.atributosPesquisa.partidaRua
+    //this.caronadesejada.route.departurePlace.number = this.atributosPesquisa.partidaNum
+    this.caronadesejada.route.arrivalPlace = this.atributosPesquisa.destinoRua
+    //this.caronadesejada.route.arrivalPlace.number = this.atributosPesquisa.destinoNum
     this.caronadesejada.price = this.atributosPesquisa.valorMax
     this.caronadesejada.departureTime = this.atributosPesquisa.data
     //Ajeitar hora e data em ride
@@ -49,11 +49,11 @@ export class AvailableRidesComponent implements OnInit {
 
   ngOnInit(): void {
     this.caronasdisp = [];
-    this.rideService.getAllRides()
+    console.log(this.rideService.getAllRides()
                     .subscribe(
                       caronasdisp => this.caronasdisp = caronasdisp,
                       error => console.error('Não há caronas cadastradas') // Verificar como tratar erro
-                    );
+                    ));
     
     this.pesquisa = true;
   }

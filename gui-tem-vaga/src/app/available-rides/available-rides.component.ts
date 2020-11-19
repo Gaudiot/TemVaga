@@ -15,7 +15,7 @@ export class AvailableRidesComponent implements OnInit {
   caronadesejada: Ride;
   atributosPesquisa: AtributosPesquisa = new AtributosPesquisa() 
   pesquisa: boolean = false;
-
+  
     pesquisarCarona(atributos: AtributosPesquisa): void {
     this.atributosPesquisa = {partidaRua: "", partidaNum: null, destinoRua: "", destinoNum: null, valorMax: null, data: null, hora: null}
     this.atributosPesquisa = atributos;
@@ -27,7 +27,7 @@ export class AvailableRidesComponent implements OnInit {
     this.caronadesejada.departureTime = this.atributosPesquisa.data
     //Ajeitar hora e data em ride
     //this.caronadesejada.hora = this.atributosPesquisa.hora
-
+  
     this.caronasdisp = [];
     this.rideService.getAllRides()
     .subscribe(
@@ -36,7 +36,7 @@ export class AvailableRidesComponent implements OnInit {
     );
 
     this.caronasdisp.filter(r => r.route.departurePlace == this.caronadesejada.route.departurePlace)//Realmente terá que partir do mesmo lugar?
-    this.caronasdisp.filter(r => r.route.arrivalPlace == this.caronadesejada.route.arrivalPlace)
+    //this.caronasdisp.filter(r => r.route.arrivalPlace == this.caronadesejada.route.arrivalPlace)//Não será mais necessário ser igual
     if(this.caronadesejada.price != null) {
       this.caronasdisp.filter(r => r.price <= this.caronadesejada.price)
     }

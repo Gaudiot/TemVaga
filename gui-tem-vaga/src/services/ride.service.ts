@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { retry, map } from 'rxjs/operators';
+import { retry, map, catchError} from 'rxjs/operators';
 
 import Ride from '../../../common/src/Ride/ride';
 import Route from '../../../common/src/Ride/route';
@@ -16,6 +16,7 @@ export class RideService {
   create(ride: Ride): Observable<Ride> {
     return;
   }
+ 
 
   update(ride: Ride): Observable<Ride> {
     return;
@@ -30,13 +31,25 @@ export class RideService {
   }
 
   getAllRides(): Observable<Ride[]> {
-    return this.http.get<Ride[]>(this.baseURL);
-                    //.map(res=>res.json())
-                    //.catch(err=> Observable.throw(err.message));
+    return this.http.get<Ride[]>(`${this.baseURL}/ride/all`)
+                    .pipe(
+                      retry(2)
+                    );
   }
 
   getFilteredRides(comparisonRide: Ride): Observable<Ride[]> {
-    return;
+   /* let params = new URLSearchParams();
+    params.set('parametro1', comparisonRide);
+    let requestOptions = new RequestOptions({params});
+    return this.http.get<Ride[]>(this.baseURL + "/ride/filtered", params)
+              //.map((res))
+              .pipe(
+                retry(2),
+                map((r: Ride[]) => {
+                  return r
+                })
+              );*/
+              return
   }
 
   delete(id: string): Observable<number> {
@@ -74,4 +87,5 @@ export class RideService {
   updateRoute(route: Route): Observable<Route> {
     return;
   }
+
 }

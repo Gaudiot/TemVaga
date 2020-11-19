@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run tsc && jasmine --config=./spec/support/jasmine.json",
     "tsc": "node ./node_modules/typescript/bin/tsc",
-    "start": "npm run tsc && node compiledCode/tem-vaga-server/tem-vaga-server.js"
+    "start": "npm run tsc && node compiledCode/server-tem-vaga/tem-vaga-server.js"
   },
   "author": "Igor Simoes",
   "license": "ISC",

@@ -1,41 +1,63 @@
 <html>
-   <h1>Caronas Disponíveis</h1>
-  <table>
+   <script>
+      function filtros(id) {
+         document.getElementById(id).classList.toggle("hidden");
+      }
+      </script>
+<h1>Caronas Disponíveis</h1>
+   <form #f="ngForm" autocomplete="off" >
  <tr>
     <td><label>Partida: Rua:</label></td>
-    <td><input name="partidaruabox" [(ngModel)]="atributosPesquisa.partidaRua"></td>
+    <td><input name="partidaruabox" required [(ngModel)]="atributosPesquisa.partidaRua"></td>
     <td><label>Número:</label></td>
-    <td><input name="partidanumbox" [(ngModel)]="atributosPesquisa.partidaNum"></td>
+    <td><input name="partidanumbox" required [(ngModel)]="atributosPesquisa.partidaNum"></td>
  </tr>
  <tr>
     <td><label>Destino: Rua:</label></td>
-    <td><input name="destinoruabox" [(ngModel)]="atributosPesquisa.destinoRua"></td>
+    <td><input name="destinoruabox" required [(ngModel)]="atributosPesquisa.destinoRua"></td>
     <td><label>Número:</label></td>
-    <td><input name="destinonumbox" [(ngModel)]="atributosPesquisa.destinoNum"></td>
+    <td><input name="destinonumbox" required [(ngModel)]="atributosPesquisa.destinoNum"></td>
  </tr>
- <tr>
-   <td><label>Valor máximo até: </label></td>
-   <td><input name="valormaxbox" [(ngModel)]="atributosPesquisa.valorMax"></td>
- </tr>
- <tr>
-   <td><label>Data: </label></td>
-   <td><input name="databox" [(ngModel)]="atributosPesquisa.data"></td>
- </tr>
- </table>
- <!--<td><button (click)="filtros">Filtros</button></td>-->
- <td><button (click)="pesquisarCarona(atributosPesquisa)">Pesquisar</button></td>
+ </form>
+
+ <td><button onClick="filtros('mfiltros')">Filtros</button></td>
+
+ <td><button (click)="pesquisarCarona(atributosPesquisa)" [disabled]="!f.valid">Pesquisar</button></td>
+ <div id="mfiltros" class="hidden">
+<tr>
+   <td><input type="button" value="Valor" onClick="filtros('valor')" /><br/></td>
+   <div id="valor" class="hidden">
+      <td><label> Até: </label></td>
+      <td><input name="valormaxbox" [(ngModel)]="atributosPesquisa.valorMax"></td>
+   </div>
+</tr>
+<tr>
+   <td><input type="button" value="Hora" onClick="filtros('hora')"/><br/></td>
+   <div id="hora" class="hidden">
+        <td><label>Até: </label></td>
+        <td><input name="horabox" [(ngModel)]="atributosPesquisa.hora"></td>    
+  </div>
+</tr>
+<tr>
+   <td><input type="button" value="Data" onClick="filtros('data')"/><br/></td>
+   <div id="data" class="hidden">
+        <td><label>Data: </label></td>
+        <td><input name="databox" [(ngModel)]="atributosPesquisa.data"></td>
+   </div>
+</tr>
+</div>
   <table>
  <tr *ngIf="pesquisa == true">
     <th>Nome</th>
-    <th>Custo</th>
-    <th>Chegada ao destino</th>
+    <th>Custo(R$)</th>
+    <th>Hora da saída</th>
  </tr>
- <a name="caronasdescr" routerLink="/caronasDescricao"></a>
- <tr name="caronaslist" *ngFor="let c of caronasdisp">
+ <tr name="caronaslist" *ngFor="let c of caronadesejada">
     <td name="idlist">{{c.id}}</td>
     <td name="custolist">{{c.price}}</td>
     <td name="chegadadest">{{c.departureTime}}</td>
+    <a name="caronasdescr" routerLink="/caronasDescricao">Descrição</a>
  </tr>
  </table>
-
+ 
   </html>

@@ -24,4 +24,4 @@ Scenario: cancel ride
 Given I am at the "requested rides" page
 Given I have driver "Victor" at "13" hours to "Boa Viagem" at the drives list
 When I try to cancel the ride with "Victor" at "13" hours to "Boa Viagem"
-Then I cannot see a ride with "Victor" at the rides list
+Then I cannot see a ride with "Victor" at "13" hourd to "Boa Viagem" at the drives list

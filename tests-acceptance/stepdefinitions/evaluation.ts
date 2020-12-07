@@ -43,6 +43,29 @@ async function assertTamanhoEqual(set,qtt) {
 }
 
 async function assertElementsWithSameName(qtt, name){
+
+}
+
+async function assertRide(driver, time, destiny, qtt) {
+    var allRides:ElementArrayFinder = element.all(by.name('rideList'))
+    var sameDrives = allRides.filter(elem => 
+        elem.element(by.name('driverList')).getText().then(text => text === driver) && 
+        elem.element(by.name('timeList')).getText().then(text => text === time) && 
+        elem.element(by.name('destinyList')).getText().then(text => text === destiny)  
+    )
+    await assertTamanhoEqual(sameDrives, qtt);
+}
+
+async function cancelRide(driver, time, destiny) {
+    const allRides = element.all(by.name('rideList'))
+    var rides = allRides.filter(elem => 
+        elem.element(by.name('driverList')).getText().then(text => text === driver) && 
+        elem.element(by.name('timeList')).getText().then(text => text === time) && 
+        elem.element(by.name('destinyList')).getText().then(text => text === destiny)  
+    )
+    const webElements = await rides.getWebElements();
+    const cancelButton = await webElements[0].findElement(by.tagName('button'));
+    await cancelButton.click();
 }
 
 defineSupportCode(function ({ Given, When, Then }) {
@@ -63,6 +86,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         driver = driver.toString();
         time = time.toString();
         destiny = destiny.toString();
+        await assertRide(driver, time, destiny, 1);
     })
 
     When(/^I evaluate "([^\"]*)" with "(\d*)" stars$/, async (driver, grade) => {
@@ -78,6 +102,8 @@ defineSupportCode(function ({ Given, When, Then }) {
         driver = driver.toString();
         time = time.toString();
         destiny = destiny.toString();
+
+        await cancelRide(driver, time, destiny);
     })
     
     Then(/^I cannot see "([^\"]*)" at the evaluation list$/, async (driver) => {
@@ -89,7 +115,11 @@ defineSupportCode(function ({ Given, When, Then }) {
         grade = grade.toString();
     });
 
-    Then(/^I cannot see a ride with "([^\"]*)" at the rides list$/, async (driver) => {
+    Then(/^I cannot see a ride with "([^\"]*)" at "(\d*)" hourd to "([^\"]*)" at the drives list$/, async (driver, time, destiny) => {
         driver = driver.toString();
+        time = time.toString();
+        destiny = destiny.toString();
+
+        await assertRide(driver, time, destiny, 0);
     })
 })

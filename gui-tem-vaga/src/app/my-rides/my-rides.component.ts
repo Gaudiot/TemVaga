@@ -9,19 +9,35 @@ import { RideService } from '../../services/ride.service';
   styleUrls: ['./my-rides.component.css']
 })
 export class MyRidesComponent implements OnInit {
-  rides = [{a: 1}, {a: 2}, {a: 3}]
+  rides = [
+    {driver: "Guta"},
+    {driver: "Elaine"},
+    {driver: "Victor"}
+  ]
 
   constructor(private userService: UserService, private rideService: RideService) {
   }
 
+  reset(){
+    this.rides = [
+      {driver: "Guta"},
+      {driver: "Elaine"},
+      {driver: "Victor"}
+    ]
+  }
+
   evaluateRide(cpfToEvaluate: string, evaluationValue: number){
-    this.userService.evaluateUser(cpfToEvaluate, evaluationValue)
-    .subscribe(
-      ar => {
-        console.log(ar)
-      },
-      msg => console.log('batata')
-    )
+    // this.userService.evaluateUser(cpfToEvaluate, evaluationValue, 'driver')
+    // .subscribe(
+    //   ar => {
+    //     console.log(ar)
+    //   },
+    //   msg => console.log('batata')
+    // )
+    const rideIndex = this.rides.findIndex(ride => ride.driver === cpfToEvaluate);
+    if(rideIndex >= 0){
+      this.rides.splice(rideIndex, 1)
+    }
   }
 
   ngOnInit(): void {

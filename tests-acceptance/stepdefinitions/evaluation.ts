@@ -34,8 +34,12 @@ async function registerUser(): Promise<void>{
 async function removeUser(): Promise<void>{
 }
 
-async function evaluateUser(): Promise<void>{
-
+async function evaluateUser(driver, grade): Promise<void>{
+    const allDrivers = element.all(by.name('rideList'))
+    var driver = allDrivers.filter(elem => elem.element(by.name('driverList')).getText().then(text => text === driver))
+    const webElements = await driver.getWebElements();
+    const cancelButton = await webElements[0].findElements(by.tagName('button'));
+    await cancelButton[grade-1].click();
 }
 
 async function assertTamanhoEqual(set,qtt) {
@@ -44,6 +48,12 @@ async function assertTamanhoEqual(set,qtt) {
 
 async function assertElementsWithSameName(qtt, name){
 
+}
+
+async function assertDriverToEvaluate(driver, qtt) {
+    var allDrivers:ElementArrayFinder = element.all(by.name('usersToEvaluateList'))
+    var driver = allDrivers.filter(elem => elem.element(by.name('driverList')).getText().then(text => text === driver))
+    await assertTamanhoEqual(driver, qtt);
 }
 
 async function assertRide(driver, time, destiny, qtt) {
@@ -76,6 +86,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Given(/^I have driver "([^\"]*)" at the evaluation list$/, async (driver) => {
         driver = driver.toString();
+        await assertDriverToEvaluate(driver, 1);
     })
 
     Given(/^I have driver "([^\"]*)" at the users list$/, async (driver) => {
@@ -92,6 +103,8 @@ defineSupportCode(function ({ Given, When, Then }) {
     When(/^I evaluate "([^\"]*)" with "(\d*)" stars$/, async (driver, grade) => {
         driver = driver.toString();
         grade = grade.toString();
+
+        await evaluateUser(driver, grade);
     });
 
     When(/^I try to access "([^\"]*)"$/, async (driver) => {
@@ -108,6 +121,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     
     Then(/^I cannot see "([^\"]*)" at the evaluation list$/, async (driver) => {
         driver = driver.toString();
+        await assertDriverToEvaluate(driver, 0);
     });
 
     Then(/^I can see driver "([^\"]*)" have a "(\d*)" rating$/, async (driver, grade) => {

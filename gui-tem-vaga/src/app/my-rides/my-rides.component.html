@@ -1,10 +1,13 @@
 <p>my-rides works!</p>
+<button (click)="reset()">Reset</button>
+<h3>Rides to evaluate</h3>
 <ul>
-  <li *ngFor="let ride of rides" >
-    <button (click)="evaluateRide(ride.driver, 1)">Avaliar 1</button>
-    <button (click)="evaluateRide(ride.driver, 2)">Avaliar 2</button>
-    <button (click)="evaluateRide(ride.driver, 3)">Avaliar 3</button>
-    <button (click)="evaluateRide(ride.driver, 4)">Avaliar 4</button>
-    <button (click)="evaluateRide(ride.driver, 5)">Avaliar 5</button>
+  <li *ngFor="let ride of rides;" name="usersToEvaluateList">
+    <span name="driverList">{{ride.driver}}</span>
+    <button (click)="evaluateRide(ride.driver, 1)" name="starOne">1</button>
+    <button (click)="evaluateRide(ride.driver, 2)" name="starTwo">2</button>
+    <button (click)="evaluateRide(ride.driver, 3)" name="starThree">3</button>
+    <button (click)="evaluateRide(ride.driver, 4)" name="starFour">4</button>
+    <button (click)="evaluateRide(ride.driver, 5)" name="starFive">5</button>
   </li>
 </ul>

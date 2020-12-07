@@ -28,12 +28,6 @@ async function goToPage(page: string): Promise<void>{
     }
 }
 
-async function registerUser(): Promise<void>{
-}
-
-async function removeUser(): Promise<void>{
-}
-
 async function evaluateUser(driver, grade): Promise<void>{
     const allDrivers = element.all(by.name('rideList'))
     var driver = allDrivers.filter(elem => elem.element(by.name('driverList')).getText().then(text => text === driver))
@@ -44,10 +38,6 @@ async function evaluateUser(driver, grade): Promise<void>{
 
 async function assertTamanhoEqual(set,qtt) {
     await set.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(qtt));
-}
-
-async function assertElementsWithSameName(qtt, name){
-
 }
 
 async function assertDriverToEvaluate(driver, qtt) {
@@ -64,6 +54,12 @@ async function assertRide(driver, time, destiny, qtt) {
         elem.element(by.name('destinyList')).getText().then(text => text === destiny)  
     )
     await assertTamanhoEqual(sameDrives, qtt);
+}
+
+async function assertUser(user, qtt){
+    var allUsers:ElementArrayFinder = element.all(by.name('rideList'))
+    var users = allUsers.filter(elem => elem.element(by.name('userList')).getText().then(text => text === user))
+    await assertTamanhoEqual(users, qtt);
 }
 
 async function cancelRide(driver, time, destiny) {
@@ -91,6 +87,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Given(/^I have driver "([^\"]*)" at the users list$/, async (driver) => {
         driver = driver.toString();
+        await assertUser(driver, 1);
     });
 
     Given(/^I have driver "([^\"]*)" at "(\d*)" hours to "([^\"]*)" at the drives list$/, async (driver, time, destiny) => {

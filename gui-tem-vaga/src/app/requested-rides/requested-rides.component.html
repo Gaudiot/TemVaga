@@ -1,1 +1,14 @@
 <p>requested-rides works!</p>
+<button (click)="reset()">Reset</button>
+<div *ngFor="let ride of rides" name="rideList">
+  <div style="display: flex; padding: 10px;">
+    <div style="display: flex; flex-direction: column;">
+      <span name="driverList">{{ride.driver}}</span>
+      <span name="timeList">{{ride.time}}H</span>
+      <span name="destinyList">{{ride.destiny}}</span>
+    </div>
+    <div>
+      <button (click)="cancelRide(ride.id)">Cancelar</button>
+    </div>
+  </div>
+</div>
